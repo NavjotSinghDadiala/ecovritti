@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --muted:#9aa4b2;
+            --accent:#7c5cff;
+            --glass: rgba(255,255,255,0.04);
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background:
+              radial-gradient(1200px 500px at 10% 10%, rgba(124,92,255,0.12), transparent 8%),
+              radial-gradient(1000px 400px at 90% 90%, rgba(0,200,255,0.04), transparent 10%),
+              linear-gradient(180deg,#071024 0%, #081129 50%, #06101a 100%);
+            color:#e6eef8;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:28px;
+        }
+        .wrap{
+            width:100%;
+            max-width:920px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius:14px;
+            padding:28px;
+            box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+            display:grid;
+            grid-template-columns: 1fr 360px;
+            gap:24px;
+            align-items:center;
+            backdrop-filter: blur(6px) saturate(120%);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .left{
+            padding:18px 22px;
+        }
+        .brand{
+            display:flex;
+            gap:14px;
+            align-items:center;
+        }
+        .logo{
+            width:56px;
+            height:56px;
+            border-radius:12px;
+            background:linear-gradient(135deg,var(--accent),#3ab7ff);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            color:white;
+            font-size:20px;
+            box-shadow: 0 6px 18px rgba(124,92,255,0.18), inset 0 -6px 18px rgba(0,0,0,0.12);
+        }
+        h1{
+            margin:18px 0 6px 0;
+            font-size:28px;
+            line-height:1.05;
+            letter-spacing:-0.02em;
+            font-weight:700;
+        }
+        p.lead{
+            margin:0 0 18px 0;
+            color:var(--muted);
+            max-width:64ch;
+            font-size:15px;
+        }
+        .features{
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-top:10px;
+        }
+        .chip{
+            background:var(--glass);
+            padding:8px 12px;
+            border-radius:999px;
+            color:var(--muted);
+            font-size:13px;
+            border:1px solid rgba(255,255,255,0.02);
+        }
+        .right{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius:12px;
+            padding:22px;
+            box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+            border:1px solid rgba(255,255,255,0.03);
+        }
+        .card-title{
+            font-size:16px;
+            margin:0 0 12px 0;
+            font-weight:600;
+        }
+        .btn{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            padding:12px 18px;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:600;
+            cursor:pointer;
+            border:none;
+            font-size:15px;
+            transition:transform 160ms ease, box-shadow 160ms ease;
+        }
+        .btn:active{transform:translateY(1px)}
+        .primary{
+            background:linear-gradient(90deg,var(--accent),#3ab7ff);
+            color:white;
+            box-shadow: 0 8px 24px rgba(124,92,255,0.18);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .outline{
+            background:transparent;
+            color:var(--muted);
+            border:1px solid rgba(255,255,255,0.06);
+            padding:11px 16px;
+        }
+        .links{
+            display:flex;
+            gap:12px;
+            margin-top:10px;
+        }
+        footer{
+            margin-top:18px;
+            color:var(--muted);
+            font-size:13px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+            flex-wrap:wrap;
+        }
+        .small{
+            font-size:13px;
+            color:var(--muted);
+        }
+        @media (max-width:880px){
+            .wrap{grid-template-columns:1fr; padding:20px}
+            .right{order:2}
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap" role="main">
+        <section class="left">
+            <div class="brand">
+                <div class="logo">NSD</div>
+                <div>
+                    <div style="font-size:14px;color:var(--muted);font-weight:600">A Sample Full Stack</div>
+                    <div style="font-size:12px;color:var(--muted);margin-top:2px">Admin & User dashboard</div>
+                </div>
+            </div>
+            <h1>Clean backend. Friendly frontend.</h1>
+            <p class="lead">The purpose of this project is to provide me with a ready to use basic structure that I can quickly import whenever I start a new full-stack project.</p>
+            <div class="features">
+                <div class="chip">SQLite ready</div>
+                <div class="chip">Admin / User routing</div>
+                <div class="chip">Jinja Template</div>
+            </div>
+            <footer>
+                <div class="small">Built with Flask • Basic</div>
+                <div style="display:flex;gap:12px;align-items:center">
+                    <a class="btn outline" href="https://flask.palletsprojects.com/">Docs</a>
+                    <a class="btn outline" href="https://www.sqlite.org/">SQLite</a>
+                </div>
+            </footer>
+        </section>
+        <aside class="right" aria-labelledby="access-title">
+            <div id="access-title" class="card-title">Get started</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+                <a class="btn primary" href="{{ url_for('register') }}" role="button">Create account</a>
+                <a class="btn outline" href="{{ url_for('login') }}" role="button">Sign in</a>
+                <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
+                    <span style="font-size:13px;color:var(--muted)">Or open as</span>
+                    <a class="btn outline" href="{{ url_for('login') }}?user=admin" role="button" style="padding:8px 12px;font-weight:600">Admin</a>
+                </div>
+            </div>
+            <div style="margin-top:18px;color:var(--muted);font-size:13px">
+                - Made by Navjot Singh Dadiala (Navi SD).
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
