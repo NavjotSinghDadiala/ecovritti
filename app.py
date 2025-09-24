@@ -1,13 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for, session , jsonify , flash
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+import os
+from os import environ
 
 app = Flask(__name__)
 app.secret_key = "abc-secret-key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True,     
+    "pool_recycle": 280,      
+    "pool_size": 20,           
+    "max_overflow": 30,        
+    "pool_timeout": 30         
+}
 
-class User(db.Model):
+# Encode password
+password = "Sihhackathon@123"
+encoded_password = password.replace("@", "%40")
+
+# Configure database
+if 'DATABASE_URL' in environ:
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://u862294565_sih:{encoded_password}@82.25.121.49/u862294565_sih"
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# User model
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=True)
@@ -17,6 +46,7 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
 
 @app.route("/")
 def home():
@@ -59,13 +89,9 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-
-        # match username & password in DB
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            session["user"] = user.username
-            session["role"] = user.role  # store role in session
-
+            login_user(user)
             # redirect based on role
             if user.role == "secretary":
                 return redirect(url_for("secretary"))
@@ -75,32 +101,31 @@ def login():
                 return redirect(url_for("user"))  # default for residents
         else:
             return "Invalid credentials"
-
     return render_template("login.html")
 
 
 
 @app.route("/logout")
 def logout():
-    session.pop("user", None)
+    logout_user()
     return redirect(url_for("home"))
 
 @app.route("/admin")
+@login_required
 def admin():
-    if "user" not in session or session["user"] != "admin":
+    if current_user.username != "admin":
         return redirect(url_for("login"))
     return render_template("admin_dashboard.html")
 
 @app.route("/user")
+@login_required
 def user():
-    if "user" not in session:
-        return redirect(url_for("login"))
-    user = User.query.filter_by(username=session["user"]).first()
-    return render_template("user_dashboard.html", user=user)
+    return render_template("user_dashboard.html", user=current_user)
 
 @app.route("/secretary")
+@login_required
 def secretary():
-    if "user" not in session or session.get("role") != "secretary":
+    if current_user.role != "secretary":
         return redirect(url_for("login"))
     return render_template("secretary_dashboard.html")
 
