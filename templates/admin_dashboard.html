@@ -1,12 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Municipal Dashboard • SmartBinX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+  <!-- Add inside <head> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 </head>
+
 <body>
-    <h1>Welcome, Admin!</h1>
-    <a href="{{ url_for('logout') }}">Logout</a>
+  <header class="landing-nav" style="background-color: #49544f;">
+    <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
+        <div class="brand" style="display:flex; gap:12px; align-items:center;">
+            <img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
+                style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
+            <div>
+                <div class="brand-title">SmartBinX</div>
+                <div class="brand-sub">Next-Gen Waste Segregation</div>
+            </div>
+        </div>
+        <nav class="nav-links" style="display:flex; gap:32px;">
+            <a href="{{ url_for('home') }}" style="color: #ffffff;">Home</a>
+            <a id="navHow" href="{{ url_for('how') }}" style="color: #ffffff;">How we work</a>
+            <a href="#" style="color: #ffffff;">About</a>
+            <a href="#footer"
+                onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'}); return false;"
+                style="color: #ffffff;">Contact</a>
+        </nav>
+        <div class="nav-cta" style="display:flex; gap:12px;">
+            <!-- Changed to Logout -->
+            <a class="btn ghost" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</header>
+
+
+  <main style="max-width:1100px; margin:28px auto; padding:0 16px;">
+    
+
+    <!-- Dashboard sections -->
+    <section class="container">
+      <!-- Left column: Alerts + Sensors + WiFi -->
+      <div>
+        <div class="card">
+          <h2>Bin Fill Alerts</h2>
+          <div id="fillAlerts" class="alerts-list"></div>
+          <p class="small-muted">Shows bins near capacity. Red = critical.</p>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h2>Battery & Sensor Calibration</h2>
+          <table class="sensor-table" id="sensorTable">
+            <thead>
+              <tr>
+                <th>Sensor ID</th>
+                <th>Bin</th>
+                <th>Status</th>
+                <th>Battery</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h2>WiFi / SMS Alerts</h2>
+          <button class="btn" id="simulateWifiBtn">Simulate WiFi Failure</button>
+          <div id="smsBanner" class="sms-banner"></div>
+        </div>
+      </div>
+
+      <!-- Right column: Compliance chart + Summary -->
+      <div>
+        <div class="card">
+          <h2>Area Compliance Report</h2>
+          <canvas id="areaComplianceChart" width="400" height="260"></canvas>
+        </div>
+        <div class="card" style="margin-top:16px;">
+          <h2>Quick Summary</h2>
+          <ul style="padding-left:18px; margin:8px 0;">
+            <li id="summaryBins">Bins critical: 0</li>
+            <li id="summaryLowBattery">Low battery: 0</li>
+            <li id="summarySensors">Sensors needing calibration: 0</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const mockBins = [
+      { id: 'Bin-1', fill: 80, area: 'Sector 12' },
+      { id: 'Bin-2', fill: 45, area: 'Sector 7' },
+      { id: 'Bin-3', fill: 95, area: 'Sector 3' }
+    ];
+    const mockSensors = [
+      { id: 'S-101', bin: 'Bin-1', battery: 44, calibrated: false },
+      { id: 'S-102', bin: 'Bin-2', battery: 82, calibrated: true },
+      { id: 'S-103', bin: 'Bin-3', battery: 12, calibrated: false }
+    ];
+
+    function renderFillAlerts() {
+      const c = document.getElementById('fillAlerts');
+      c.innerHTML = '';
+      mockBins.forEach(b => {
+        let alert = document.createElement('div');
+        alert.className = b.fill >= 90 ? 'alert danger' : (b.fill >= 75 ? 'alert warning' : 'alert success');
+        alert.textContent = `${b.id} (${b.area}) — ${b.fill}% full`;
+        c.appendChild(alert);
+      });
+      document.getElementById('summaryBins').textContent =
+        `Bins critical: ${mockBins.filter(b => b.fill >= 90).length}`;
+    }
+
+    function renderSensorTable() {
+      const tb = document.querySelector('#sensorTable tbody');
+      tb.innerHTML = '';
+      mockSensors.forEach(s => {
+        const tr = document.createElement('tr');
+        const status = (!s.calibrated ? 'Calibration due' : 'OK') + (s.battery < 20 ? ' • Low battery' : '');
+        tr.innerHTML = `<td>${s.id}</td><td>${s.bin}</td><td>${status}</td><td>${s.battery}%</td>`;
+        tb.appendChild(tr);
+      });
+    }
+
+    function initAreaChart() {
+      new Chart(document.getElementById('areaComplianceChart'), {
+        type: 'line',
+        data: { labels: ['May', 'Jun', 'Jul'], datasets: [{ label: 'Compliance %', data: [62, 70, 78], borderColor: '#2ecc71', fill: true }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { suggestedMin: 0, suggestedMax: 100 } } }
+      });
+    }
+
+    document.getElementById('simulateWifiBtn').onclick = () => {
+      document.getElementById('smsBanner').style.display = 'block';
+      document.getElementById('smsBanner').textContent = 'WiFi Failure detected — SMS sent.';
+    };
+
+    (function init() {
+      renderFillAlerts();
+      renderSensorTable();
+      initAreaChart();
+    })();
+  </script>
+
+  <script src="{{ url_for('static', filename='assets/js/injectFooter.js') }}"></script>
 </body>
+
 </html>

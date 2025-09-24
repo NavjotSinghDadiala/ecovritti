@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartBinX: Next-Gen Waste Segregation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+
+</head>
+
+<body>
+    <header class="landing-nav" style="background-color:#49544f;">
+        <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="brand" style="display:flex; gap:12px; align-items:center;">
+                <img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
+                    style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
+                <div>
+                    <div class="brand-title">SmartBinX</div>
+                    <div class="brand-sub">Next-Gen Waste Segregation</div>
+                </div>
+            </div>
+            <nav class="nav-links" style="display:flex; gap:32px; ">
+                <a href="{{ url_for('home') }}" style="color: #fff;">Home</a>
+                <a id="navHow" href="{{ url_for('how') }}" style="color: #fff;">How we work</a>
+                <a href="#" style="color: #fff;">About</a>
+                <a href="#" style="color: #fff;">Contact</a>
+            </nav>
+            <div class="nav-cta" style="display:flex; gap:12px;">
+                <a id="navAuth" class="btn ghost" href="{{ url_for('login') }}">Login / Sign Up</a>
+                <a class="btn" href="#">Get Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero"
+        style="background: url('{{ url_for('static', filename='images/jas-min-CIItgnBEOgw-unsplash.jpg') }}') center center/cover no-repeat; border-radius: 18px; min-height: 380px; box-shadow: 0 4px 24px rgba(34,197,94,0.10); margin-bottom: 32px; position: relative;">
+        <div
+            style="flex:1; min-width:320px; background: rgba(255,255,255,0.82); border-radius: 18px; padding: 32px 24px; margin: 32px 0;">
+            <div class="container hero-inner"
+                style="display:flex; flex-wrap:wrap; gap:48px; align-items:center; justify-content:space-between;">
+                <div style="flex:1; min-width:320px;">
+                    <div class="badge-pill" style="margin-bottom:18px;">Eco-Friendly Solutions</div>
+                    <h1 style="margin-bottom:18px;"><span>Smart Waste</span> Management<br />for a Cleaner Future</h1>
+                    <p class="hero-sub" style="margin-bottom:32px;">Professional waste disposal services with
+                        cutting-edge technology. We make waste management simple, efficient, and environmentally
+                        responsible.</p>
+                    <!-- <div class="hero-ctas" style="display:flex; gap:16px;">
+                    <a class="btn" href="#features">Our Services</a>
+                    <a id="heroAuth" class="btn ghost" href="pages/auth.html">Login / Sign Up</a>
+                </div> -->
+                </div>
+            </div>
+
+            <div class="container" style="margin-top:32px;">
+                <div class="card"
+                    style="max-width:420px; margin:0 auto; background:#f0fdf4; border:1px solid #22c55e; border-radius:18px; box-shadow:0 4px 16px rgba(34,197,94,0.08); padding:32px; text-align:center;">
+                    <div class="hero-card-title"
+                        style="font-size:1.35rem; font-weight:700; margin-bottom:18px; color:#166534;">Smart Collection
+                    </div>
+                    <div class="hero-card-grid" style="display:flex; gap:32px; justify-content:center;">
+                        <div style="text-align:center;">
+                            <div class="card-kpi" style="font-size:2.2rem; font-weight:700; color:#22c55e;">24/7</div>
+                            <div class="card-kpi-sub" style="color:#166534;">Monitoring</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="card-kpi" style="font-size:2.2rem; font-weight:700; color:#22c55e;">100%</div>
+                            <div class="card-kpi-sub" style="color:#166534;">Eco-Friendly</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section id="motto" class="motto">
+        <div class="container motto-box" style="text-align:center;">
+            <h2 style="margin-bottom:12px;">Our Motto</h2>
+            <p style="font-size:1.15rem;">"We're building AI for humans with humans"</p>
+        </div>
+    </section>
+
+    <!-- Auth forms removed from home page; use navbar Login/Sign Up to open dedicated page. -->
+
+    <section id="contact" class="cta-band">
+        <div class="container cta-inner"
+            style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:32px;">
+            <div style="flex:2; min-width:220px;">
+                <h3 style="margin-bottom:10px;">Ready to Get Started?</h3>
+                <p class="muted" style="margin-bottom:0; color: #000;">Contact us today for a free consultation and
+                    quote</p>
+            </div>
+            <div class="toolbar" style="display:flex; gap:16px;">
+                <a id="ctaCall" class="btn ghost" href="#"
+                    onclick="document.querySelector('/footer').scrollIntoView({behavior:'smooth'}); return false;">Call
+                    Now</a>
+            </div>
+        </div>
+    </section>
+    <script src="{{ url_for('static', filename='assets/js/injectFooter.js') }}"></script>
+    <script>
+        // Intent flags for gated pages
+        document.getElementById('navHow').addEventListener('click', () => {
+            localStorage.setItem('swm.navIntent', 'how');
+        });
+        document.getElementById('navAuth').addEventListener('click', () => {
+            localStorage.setItem('swm.navIntent', 'auth');
+        });
+        const heroAuth = document.getElementById('heroAuth');
+        heroAuth && heroAuth.addEventListener('click', () => localStorage.setItem('swm.navIntent', 'auth'));
+        const ctaQuote = document.getElementById('ctaQuote');
+        const ctaCall = document.getElementById('ctaCall');
+        ctaQuote && ctaQuote.addEventListener('click', () => localStorage.setItem('swm.navIntent', 'auth'));
+        ctaCall && ctaCall.addEventListener('click', () => localStorage.setItem('swm.navIntent', 'auth'));
+
+        // footer year
+        const yearEls = document.querySelectorAll('#year');
+        yearEls.forEach(el => el.textContent = new Date().getFullYear());
+    </script>
+
+
+</body>
+
+</html>
