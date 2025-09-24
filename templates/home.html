@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,29 +15,6 @@
 </head>
 
 <body>
-    <header class="landing-nav" style="background-color:#49544f;">
-        <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="brand" style="display:flex; gap:12px; align-items:center;">
-                <img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
-                    style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
-                <div>
-                    <div class="brand-title">SmartBinX</div>
-                    <div class="brand-sub">Next-Gen Waste Segregation</div>
-                </div>
-            </div>
-            <nav class="nav-links" style="display:flex; gap:32px; ">
-                <a href="{{ url_for('home') }}" style="color: #fff;">Home</a>
-                <a id="navHow" href="{{ url_for('how') }}" style="color: #fff;">How we work</a>
-                <a href="#" style="color: #fff;">About</a>
-                <a href="#" style="color: #fff;">Contact</a>
-            </nav>
-            <div class="nav-cta" style="display:flex; gap:12px;">
-                <a id="navAuth" class="btn ghost" href="{{ url_for('login') }}">Login / Sign Up</a>
-                <a class="btn" href="#">Get Quote</a>
-            </div>
-        </div>
-    </header>
-
     <section id="hero" class="hero"
         style="background: url('{{ url_for('static', filename='images/jas-min-CIItgnBEOgw-unsplash.jpg') }}') center center/cover no-repeat; border-radius: 18px; min-height: 380px; box-shadow: 0 4px 24px rgba(34,197,94,0.10); margin-bottom: 32px; position: relative;">
         <div
@@ -124,3 +103,4 @@
 </body>
 
 </html>
+{% endblock %}

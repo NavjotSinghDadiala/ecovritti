@@ -25,11 +25,8 @@
                 </button>
                 <nav class="nav-links">
                     {% block nav_links %}
-                    <a id="navHow" href="{{ url_for('how') }}">How we work</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
-                    <a id="navAuth" class="btn primary" href="{{ url_for('login') }}">Login / Sign Up</a>
-                    <a class="btn ghost" href="#">Get Quote</a>
+                    <a class="btn ghost" href="#">User Functions </a>
+                    <a id="navAuth" class="btn primary" href="{{ url_for('logout') }}">Logout</a>
                     {% endblock %}
                 </nav>
             </div>

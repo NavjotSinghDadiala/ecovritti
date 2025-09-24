@@ -1,180 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Resident Dashboard • SmartBinX</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
-</head>
-
-<body>
-	<header class="landing-nav" style="background-color: #49544f;">
-    <div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
-        <div class="brand" style="display:flex; gap:12px; align-items:center;">
-            <img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
-                style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
-            <div>
-                <div class="brand-title">SmartBinX</div>
-                <div class="brand-sub">Next-Gen Waste Segregation</div>
-            </div>
-        </div>
-        <nav class="nav-links" style="display:flex; gap:32px;">
-            <a href="{{ url_for('home') }}" style="color: #ffffff;">Home</a>
-            <a id="navHow" href="{{ url_for('how') }}" style="color: #ffffff;">How we work</a>
-            <a href="#" style="color: #ffffff;">About</a>
-            <a href="#footer"
-                onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'}); return false;"
-                style="color: #ffffff;">Contact</a>
-        </nav>
-        <div class="nav-cta" style="display:flex; gap:12px;">
-            <!-- Changed to Logout -->
-            <a class="btn ghost" href="{{ url_for('logout') }}">Logout</a>
-        </div>
+{% extends "base_user.html" %}
+{% block content %}
+<div class="dashboard-hero">
+  <div class="dashboard-hero-icon">
+    <span class="material-icons" style="font-size:3rem;color:#22c55e;">person</span>
+  </div>
+  <div>
+    <h1 class="dashboard-title">Resident Dashboard</h1>
+    <p class="dashboard-sub">Track your rewards, progress, and segregation history</p>
+  </div>
+  <div class="dashboard-kpis">
+    <div class="kpi-card">
+      <div class="kpi-label">Reward Points</div>
+      <div class="kpi-value" id="scoreValue">0 pts</div>
     </div>
-</header>
-
-
-
-	<header class="site-header">
-		<h1>Resident Dashboard</h1>
-		<p class="subtitle">Track rewards, progress, and segregation history</p>
-	</header>
-
-	<main class="container grid grid-3">
-		<!-- Profile & QR -->
-		<section class="card"
-			style="grid-column: 1 / -1; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(34,197,94,0.10); padding: 40px 32px; margin-bottom: 32px;">
-			<div class="section-title">
-				<h3>Profile & QR</h3>
-				<a class="pill" href="{{ url_for('login') }}">← Switch Role</a>
-				<!-- <button id="logoutBtn" class="btn ghost">Logout</button> -->
-				<a class="pill" href="{{ url_for('logout') }}">Logout</a>
-			</div>
-			<div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:24px;">
-				<div id="qr" style="border-radius:16px; box-shadow:0 2px 12px rgba(34,197,94,0.10);"></div>
-				<p style="font-size:14px; color:#16a34a; margin:0;">Your Unique QR Code</p>
-				<p><span id="residentName"></span> • <span id="residentFlat"></span></p>
-				<p class="badge" id="residentIdBadge"></p>
-			</div>
-			<div class="grid grid-2 kpi-grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:32px;">
-				<div class="kpi">
-					<div class="value" id="scoreValue">0 pts</div>
-					<div class="label">Total Reward Points</div>
-				</div>
-				<div class="kpi warning" style="background:#f0fdf4; border-radius:12px; padding:18px;">
-					<div class="label"> Level</div>
-					<div class="value"><span id="levelValue"> 1</span></div>
-
-					<div class="progress" style="margin-top:10px">
-						<div id="levelProgress" class="bar" style="width:0%"></div>
-					</div>
-					<small class="muted" id="levelHint"></small>
-				</div>
-			</div>
-		</section>
-
-		<!-- Reward History -->
-		<section class="card"
-			style="grid-column: 1 / -1; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(34,197,94,0.10); padding: 40px 32px; margin-bottom: 32px;">
-			<div class="section-title">
-				<h3>Reward History</h3><span class="badge">Updates</span>
-			</div>
-			<table class="table" id="rewardTable">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Reward</th>
-						<th>Note</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</section>
-
-		<!-- Leaderboard -->
-		<section class="card"
-			style="grid-column: 1 / -1; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(34,197,94,0.10); padding: 40px 32px; margin-bottom: 32px;">
-			<div class="section-title">
-				<h3>Society Leaderboard</h3><span class="badge">Top performers</span>
-			</div>
-			<div class="leaderboard-card">
-				<table class="table" id="leaderboard">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Flat</th>
-							<th>Score</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-			</div>
-		</section>
-	</main>
-
-	<!-- QR Code Library -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const user = JSON.parse(localStorage.getItem("currentUser"));
-
-			// Fill profile
-			document.getElementById("residentName").textContent = user.name || "Unknown";
-			document.getElementById("residentFlat").textContent = user.flat || "Flat-NA";
-			document.getElementById("residentIdBadge").textContent = user.residentId || "RES-NA";
-
-			// Generate QR code
-			new QRCode(document.getElementById("qr"), {
-				text: user.residentId || user.email,
-				width: 160,
-				height: 160,
-				colorDark: "#16a34a",
-				colorLight: "#ffffff",
-				correctLevel: QRCode.CorrectLevel.H
-			});
-
-			// Example mock reward history
-			const rewards = [
-				{ date: "2025-09-20", reward: "+20 pts", note: "Proper segregation" },
-				{ date: "2025-09-15", reward: "+10 pts", note: "Organic waste recycled" }
-			];
-			const rewardTable = document.querySelector("#rewardTable tbody");
-			rewards.forEach(r => {
-				const row = `<tr><td>${r.date}</td><td>${r.reward}</td><td>${r.note}</td></tr>`;
-				rewardTable.insertAdjacentHTML("beforeend", row);
-			});
-
-			// Calculate score & level
-			let totalPoints = rewards.reduce((sum, r) => sum + parseInt(r.reward), 0);
-			document.getElementById("scoreValue").textContent = totalPoints + " pts";
-
-			let level = Math.floor(totalPoints / 50) + 1;
-			let progress = (totalPoints % 50) * 2; // 50 pts = 100%
-			document.getElementById("levelValue").textContent = level;
-			document.getElementById("levelProgress").style.width = progress + "%";
-			document.getElementById("levelHint").textContent = `${50 - (totalPoints % 50)} pts to next level`;
-
-			// Example mock leaderboard
-			const leaderboard = [
-				{ name: user.name, flat: user.flat, score: totalPoints + " pts" },
-				{ name: "Neha Sharma", flat: "B-203", score: "140 pts" },
-				{ name: "Ravi Patel", flat: "A-305", score: "135 pts" }
-			];
-			const leaderboardTable = document.querySelector("#leaderboard tbody");
-			leaderboard.forEach((p, i) => {
-				const row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.flat}</td><td>${p.score}</td></tr>`;
-				leaderboardTable.insertAdjacentHTML("beforeend", row);
-			});
-
-			
-		});
-	</script>
-</body>
-
-</html>
+    <div class="kpi-card">
+      <div class="kpi-label">Level</div>
+      <div class="kpi-value" id="levelValue">1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Rank</div>
+      <div class="kpi-value" id="rankValue">-</div>
+    </div>
+  </div>
+</div>
+<main class="dashboard-main grid grid-2">
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">qr_code</span> Profile & QR <span class="badge success" id="residentIdBadge"></span></div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:24px;">
+      <div id="qr" style="border-radius:16px; box-shadow:0 2px 12px rgba(34,197,94,0.10);"></div>
+      <p style="font-size:14px; color:#16a34a; margin:0;">Your Unique QR Code</p>
+      <p><span id="residentName"></span> • <span id="residentFlat"></span></p>
+    </div>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">history</span> Reward History <span class="badge">Updates</span></div>
+    <table class="table" id="rewardTable">
+      <thead><tr><th>Date</th><th>Reward</th><th>Note</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">leaderboard</span> Society Leaderboard <span class="badge">Top performers</span></div>
+    <div class="leaderboard-card">
+      <table class="table" id="leaderboard">
+        <thead><tr><th>#</th><th>Name</th><th>Flat</th><th>Score</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script src="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    document.getElementById("residentName").textContent = user.name || "Unknown";
+    document.getElementById("residentFlat").textContent = user.flat || "Flat-NA";
+    document.getElementById("residentIdBadge").textContent = user.residentId || "RES-NA";
+    new QRCode(document.getElementById("qr"), {
+      text: user.residentId || user.email,
+      width: 160,
+      height: 160,
+      colorDark: "#16a34a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    const rewards = [
+      { date: "2025-09-20", reward: "+20 pts", note: "Proper segregation" },
+      { date: "2025-09-15", reward: "+10 pts", note: "Organic waste recycled" }
+    ];
+    const rewardTable = document.querySelector("#rewardTable tbody");
+    rewards.forEach(r => {
+      const row = `<tr><td>${r.date}</td><td>${r.reward}</td><td>${r.note}</td></tr>`;
+      rewardTable.insertAdjacentHTML("beforeend", row);
+    });
+    let totalPoints = rewards.reduce((sum, r) => sum + parseInt(r.reward), 0);
+    document.getElementById("scoreValue").textContent = totalPoints + " pts";
+    let level = Math.floor(totalPoints / 50) + 1;
+    document.getElementById("levelValue").textContent = level;
+    // Example mock leaderboard
+    const leaderboard = [
+      { name: user.name, flat: user.flat, score: totalPoints + " pts" },
+      { name: "Neha Sharma", flat: "B-203", score: "140 pts" },
+      { name: "Ravi Patel", flat: "A-305", score: "135 pts" }
+    ];
+    const leaderboardTable = document.querySelector("#leaderboard tbody");
+    leaderboard.forEach((p, i) => {
+      const row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.flat}</td><td>${p.score}</td></tr>`;
+      leaderboardTable.insertAdjacentHTML("beforeend", row);
+      if (p.name === user.name) document.getElementById("rankValue").textContent = i + 1;
+    });
+  });
+</script>
+{% endblock %}
