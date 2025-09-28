@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SmartBinX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- <header class="landing-nav" style="background-color: #49544f;">
+        <div class="container nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="brand" style="display: flex; gap: 12px; align-items: center;">
+                <img src="images/SmartBinX Logo Design.png" alt="SmartBinX Logo" style="height: 52px; width: auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(34,197,94,0.12); margin-right: 14px;">
+                <div>
+                    <div class="brand-title">SmartBinX</div>
+                    <div class="brand-sub">Next-Gen Waste Segregation</div>
+                </div>
+            </div>
+            <nav class="nav-links" style="display: flex; gap: 32px;">
+                <a href="home.html" style="color: #ffffff;">Home</a>
+                <a id="navHow" href="how.html" style="color: #ffffff;">How we work</a>
+                <a href="#" style="color: #ffffff;">About</a>
+                <a href="#footer" onclick="document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); return false;" style="color: #ffffff;">Contact</a>
+            </nav>
+            <div class="nav-cta" style="display: flex; gap: 12px;">
+                <a class="btn ghost" href="login.html">Login / Sign Up</a>
+            </div>
+        </div>
+    </header> -->
+
+    <header class="site-header">
+        <h1>Contact Us</h1>
+        <p class="subtitle">Get in touch for waste management solutions, consultations, or support.</p>
+    </header>
+
+    <main class="container">
+        <!-- <section class="card" style="padding: 40px 32px; max-width: 600px; margin: 0 auto; background: #f0fdf4; border: 1px solid #22c55e; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);"> -->
+        <div class="card" style="padding: 48px 40px; border-radius: 20px; box-shadow: 0 6px 24px rgba(34,197,94,0.12);">
+            <h2 style="margin: 0 0 24px; text-align: center; font-size: 1.8rem; font-weight: 700; color: #166534;">Send Us a Message</h2>
+            <form action="/submit-contact" method="POST">  <!-- Adjust action to your backend endpoint -->
+                <div style="margin-bottom: 20px;">
+                    <label for="name" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Name</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="email" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Email</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="message" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Message</label>
+                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; padding: 14px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Submit</button>
+            </form>
+        <!-- </section> -->
+        </div>
+
+        <section style="margin-top: 48px; text-align: center;">
+            <h3 style="margin-bottom: 16px; color: #166534;">Other Ways to Reach Us</h3>
+            <p class="muted">Email: ✉️ smartbinX@gmail.com | Phone: 📞 +91XXXXXXXXXX</p>
+            <p class="muted">Address: 📍 Navi Mumbai</p>
+        </section>
+    </main>
+
+    
+
+    <script src="assets/js/injectFooter.js"></script>
+    <script>
+        // Update footer year
+        const yearEls = document.querySelectorAll('.year');
+        yearEls.forEach(el => { el.textContent = new Date().getFullYear(); });
+    </script>
+</body>
+</html>
+{% endblock %}
+
+

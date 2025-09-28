@@ -1,0 +1,120 @@
+{% extends "base_admin.html" %}
+{% block content %}
+<div class="dashboard-hero">
+  <div class="dashboard-hero-icon">
+    <span class="material-icons" style="font-size:3rem;color:#22c55e;">admin_panel_settings</span>
+  </div>
+  <div>
+    <h1 class="dashboard-title">Municipal Dashboard</h1>
+    <p class="dashboard-sub">Monitor bin status, compliance, and alerts in real time</p>
+  </div>
+  <div class="dashboard-kpis">
+    <div class="kpi-card">
+      <div class="kpi-label">Critical Bins</div>
+      <div class="kpi-value" id="kpiCritical">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Low Battery</div>
+      <div class="kpi-value" id="kpiBattery">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Sensors</div>
+      <div class="kpi-value" id="kpiSensors">0</div>
+    </div>
+  </div>
+</div>
+<main class="dashboard-main grid grid-2">
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">warning</span> Bin Fill Alerts <span class="badge danger" id="badgeCritical">0</span></div>
+    <div id="fillAlerts" class="alerts-list"></div>
+    <p class="small-muted">Shows bins near capacity. <span class="badge danger">Red</span> = critical.</p>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">battery_alert</span> Battery & Sensor Calibration</div>
+    <table class="table sensor-table" id="sensorTable">
+      <thead>
+        <tr><th>Sensor ID</th><th>Bin</th><th>Status</th><th>Battery</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">wifi_off</span> WiFi / SMS Alerts</div>
+    <button class="btn ghost" id="simulateWifiBtn">Simulate WiFi Failure</button>
+    <div id="smsBanner" class="sms-banner"></div>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">insights</span> Area Compliance Report</div>
+    <canvas id="areaComplianceChart" width="400" height="220"></canvas>
+  </section>
+  <section class="card dashboard-section">
+    <div class="section-title"><span class="material-icons kpi-icon">summarize</span> Quick Summary</div>
+    <ul class="dashboard-summary">
+      <li id="summaryBins">Bins critical: 0</li>
+      <li id="summaryLowBattery">Low battery: 0</li>
+      <li id="summarySensors">Sensors needing calibration: 0</li>
+    </ul>
+  </section>
+</main>
+<script src="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+<script>
+  const mockBins = [
+    { id: 'Bin-1', fill: 80, area: 'Sector 12' },
+    { id: 'Bin-2', fill: 45, area: 'Sector 7' },
+    { id: 'Bin-3', fill: 95, area: 'Sector 3' }
+  ];
+  const mockSensors = [
+    { id: 'S-101', bin: 'Bin-1', battery: 44, calibrated: false },
+    { id: 'S-102', bin: 'Bin-2', battery: 82, calibrated: true },
+    { id: 'S-103', bin: 'Bin-3', battery: 12, calibrated: false }
+  ];
+  function renderFillAlerts() {
+    const c = document.getElementById('fillAlerts');
+    c.innerHTML = '';
+    let critical = 0;
+    mockBins.forEach(b => {
+      let alert = document.createElement('div');
+      alert.className = b.fill >= 90 ? 'alert danger' : (b.fill >= 75 ? 'alert warning' : 'alert success');
+      alert.innerHTML = `<span class="material-icons">delete</span> <b>${b.id}</b> (${b.area}) — <b>${b.fill}%</b> full`;
+      if (b.fill >= 90) critical++;
+      c.appendChild(alert);
+    });
+    document.getElementById('badgeCritical').textContent = critical;
+    document.getElementById('kpiCritical').textContent = critical;
+    document.getElementById('summaryBins').textContent = `Bins critical: ${critical}`;
+  }
+  function renderSensorTable() {
+    const tb = document.querySelector('#sensorTable tbody');
+    tb.innerHTML = '';
+    let lowBattery = 0, sensors = 0;
+    mockSensors.forEach(s => {
+      const tr = document.createElement('tr');
+      const status = (!s.calibrated ? '<span class="badge warning">Calibration due</span>' : '<span class="badge success">OK</span>') + (s.battery < 20 ? ' <span class="badge danger">Low battery</span>' : '');
+      if (s.battery < 20) lowBattery++;
+      if (!s.calibrated) sensors++;
+      tr.innerHTML = `<td>${s.id}</td><td>${s.bin}</td><td>${status}</td><td>${s.battery}%</td>`;
+      tb.appendChild(tr);
+    });
+    document.getElementById('kpiBattery').textContent = lowBattery;
+    document.getElementById('kpiSensors').textContent = sensors;
+    document.getElementById('summaryLowBattery').textContent = `Low battery: ${lowBattery}`;
+    document.getElementById('summarySensors').textContent = `Sensors needing calibration: ${sensors}`;
+  }
+  function initAreaChart() {
+    new Chart(document.getElementById('areaComplianceChart'), {
+      type: 'line',
+      data: { labels: ['May', 'Jun', 'Jul'], datasets: [{ label: 'Compliance %', data: [62, 70, 78], borderColor: '#2ecc71', fill: true }] },
+      options: { plugins: { legend: { display: false } }, scales: { y: { suggestedMin: 0, suggestedMax: 100 } } }
+    });
+  }
+  document.getElementById('simulateWifiBtn').onclick = () => {
+    document.getElementById('smsBanner').style.display = 'block';
+    document.getElementById('smsBanner').textContent = 'WiFi Failure detected — SMS sent.';
+  };
+  (function init() {
+    renderFillAlerts();
+    renderSensorTable();
+    initAreaChart();
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartBinX: Next-Gen Waste Segregation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+
+</head>
+<body>
+        <header class="main-header glassy sticky">
+            <div class="container nav-inner">
+                <a href="{{ url_for('home') }}" class="brand">
+                    <span class="logo-dot-glow"></span>
+                    <img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo" class="brand-logo" />
+                    <span>
+                        <span class="brand-sub">Next-Gen Waste Segregation</span>
+                    </span>
+                </a>
+                <button class="mobile-nav-toggle" aria-label="Open navigation" onclick="document.querySelector('.nav-links').classList.toggle('mobile-active')">
+                    <span class="hamburger"></span>
+                </button>
+                <nav class="nav-links">
+                    {% block nav_links %}
+                    <a class="btn ghost" href="#">User Functions </a>
+                    <a id="navAuth" class="btn primary" href="{{ url_for('logout') }}">Logout</a>
+                    {% endblock %}
+                </nav>
+            </div>
+        </header>
+
+    {% block content %}{% endblock %}
+
+    <!-- Shared Footer Component for SmartBinX -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 32px; align-items: flex-start;">
+                <div>
+                    <div class="brand">
+                        <div class="logo-dot"></div>
+                        <div>
+                            <div class="brand-title">SmartBinX</div>
+                            <div class="brand-sub">Next-Gen Waste Segregation</div>
+                        </div>
+                    </div>
+                    <p class="muted">Leading the future of sustainable waste management with innovative technology and environmental responsibility.</p>
+                    <div>
+                        <div>📞 +91XXXXXXXXXX</div>
+                        <div>✉️ SmartbinX@gmail.com</div>
+                        <div>📍 Navi Mumbai</div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul class="link-list">
+                        <li><a href="#">Waste Collection</a></li>
+                        <li><a href="#">Recycling Services</a></li>
+                        <li><a href="#">Hazardous Waste</a></li>
+                        <li><a href="#">Bulk Waste Removal</a></li>
+                        <li><a href="#">Electronic Waste</a></li>
+                        <li><a href="#">Smart Solutions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <ul class="link-list">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News & Updates</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Support</h4>
+                    <ul class="link-list">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">System Status</a></li>
+                        <li><a href="#">Report Issue</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <ul class="link-list">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Environmental Policy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                        <li><a href="#">Licenses</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="margin:28px 0; opacity:.15" />
+            <div class="grid" style="grid-template-columns: 1fr auto; align-items:center; gap:16px;">
+                <div>
+                    <a class="pill" href="#">Facebook</a>
+                    <a class="pill" href="#">Twitter</a>
+                    <a class="pill" href="#">LinkedIn</a>
+                    <a class="pill" href="#">Instagram</a>
+                </div>
+                <div>© <span id="year"></span> SmartBinX. All rights reserved.</div>
+            </div>
+            <div class="card" style="margin-top:24px;">
+                <div class="grid" style="grid-template-columns: 1fr auto; align-items:center; gap:20px;">
+                    <div>
+                        <h3 style="margin:0 0 6px;">Stay Updated</h3>
+                        <p class="muted" style="margin:0;">Subscribe to our newsletter for the latest waste management insights and updates.</p>
+                    </div>
+                    <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');" class="toolbar" style="gap:8px">
+                        <input type="email" placeholder="Enter your email address" class="input" required />
+                        <button class="btn" type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const yearEls = document.querySelectorAll('#year');
+        yearEls.forEach(el => el.textContent = new Date().getFullYear());
+    </script>
+</body>
+</html>

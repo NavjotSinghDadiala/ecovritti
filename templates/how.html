@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>How We Work • SmartBinX</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+</head>
+
+<body>
+	<!-- <header class="landing-nav" style="background-color:#49544f;">
+		<div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
+			<div class="brand" style="display:flex; gap:12px; align-items:center;">
+				<img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
+					style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
+				<div>
+					<div class="brand-title">SmartBinX</div>
+					<div class="brand-sub">Next-Gen Waste Segregation</div>
+				</div>
+			</div>
+			<nav class="nav-links" style="display:flex; gap:32px;">
+				<a href="{{ url_for('home') }}" style="color: #ffffff;">Home</a>
+				<a id="navHow" href="{{ url_for('how') }}" style="color: #ffffff;">How we work</a>
+				<a href="#" style="color: #ffffff;">About</a>
+				<a href="#footer"
+					onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'}); return false;"
+					style="color: #ffffff;">Contact</a>
+			</nav>
+			<div class="nav-cta" style="display:flex; gap:12px;">
+				<a class="btn ghost" href="{{ url_for('login') }}">Login / Sign Up</a>
+			</div>
+		</div>
+	</header> -->
+
+	<header class="site-header">
+		<h1>How We Work</h1>
+		<p class="subtitle">End-to-end smart waste management workflow</p>
+	</header>
+
+	<main class="container">
+		<section class="card" style="grid-column:1/-1; padding:40px 32px;">
+			<h2 style="margin:0 0 24px; text-align:center; font-size:2rem; font-weight:700; letter-spacing:-1px;">Smart
+				Waste Management Workflow</h2>
+			<div class="grid grid-4" style="grid-template-columns: repeat(4, minmax(0,1fr)); gap:32px;">
+				<div class="workflow-step"
+					style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius:16px; box-shadow:0 2px 8px rgba(34,197,94,0.07); padding:32px 20px; text-align:center;">
+					<div style="font-size:2.5rem; margin-bottom:12px;">🏠</div>
+					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#166534;">Household Segregation & QR Scan
+					</h3>
+					<p class="muted" style="margin-bottom:0;">Each household segregates wet & dry waste. Waste is linked
+						to the household through QR code scanning.</p>
+				</div>
+				<div class="workflow-step"
+					style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius:16px; box-shadow:0 2px 8px rgba(56,189,248,0.07); padding:32px 20px; text-align:center;">
+					<div style="font-size:2.5rem; margin-bottom:12px;">🚛</div>
+					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#2563eb;">Collector Visit with Smart Bin</h3>
+					<p class="muted" style="margin-bottom:0;">Collector carries a portable smart bin. If segregation is
+						wrong → alert triggered & corrected. If right → points rewarded.</p>
+				</div>
+				<div class="workflow-step"
+					style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius:16px; box-shadow:0 2px 8px rgba(167,139,250,0.07); padding:32px 20px; text-align:center;">
+					<div style="font-size:2.5rem; margin-bottom:12px;">🗑️</div>
+					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#7c3aed;">Area-Level Bin & Monitoring</h3>
+					<p class="muted" style="margin-bottom:0;">Waste is transferred to area-level smart bins with IoT
+						sensors. Fill levels tracked in real time, alerts sent to municipality.</p>
+				</div>
+				<div class="workflow-step"
+					style="background: linear-gradient(135deg, #f0fdf4, #e0f2fe); border-radius:16px; box-shadow:0 2px 8px rgba(34,197,94,0.07); padding:32px 20px; text-align:center;">
+					<div style="font-size:2.5rem; margin-bottom:12px;">📱</div>
+					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#166534;">App/Website Tracking & Rewards</h3>
+					<p class="muted" style="margin-bottom:0;">Citizens track compliance reports & rewards. Municipality
+						dashboard shows real-time data & segregation trends.</p>
+					
+				</div>
+				
+	</main>
+
+	<div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+	</div>
+
+				<!-- <script src="{{ url_for('static', filename='assets/js/injectFooter.js') }}"></script> -->
+</body>
+
+</html>
+{% endblock %}

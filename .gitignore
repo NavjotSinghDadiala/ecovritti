@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+eco/
+venv/
+ENV/
+.env
+
+# Database
+site.db
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Render
+render.yaml
+
+# Misc
+*.bak
+*.swp
+*.tmp

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Sign Up • SmartBinX{% endblock %}
+
+{% block content %}
+<main class="container auth-container" style="max-width:480px; margin:40px auto;">
+	<section class="card" style="padding:32px 28px; box-shadow:0 4px 24px rgba(34,197,94,0.10); border-radius:18px;">
+		<h2 style="text-align:center; margin-bottom:24px;">Create Your Account</h2>
+		<form id="signupForm" class="login-form" autocomplete="on" method="POST" action="{{ url_for('register') }}">
+			<div class="form-grid" style="gap:18px;">
+				<div class="input-row full">
+					<label for="suUsername">Username</label>
+					<input id="suUsername" name="username" type="text" placeholder="Choose a username" required
+						style="width:100%;padding:10px 12px;font-size:1rem;border-radius:6px;border:1px solid #d1d5db;" />
+				</div>
+				<div class="input-row">
+					<label for="suEmail">Email</label>
+					<input id="suEmail" name="email" type="email" placeholder="you@example.com (must end with .com)"
+						pattern="^[^\s@]+@[^\s@]+\.com$"
+						style="width:100%;padding:10px 12px;font-size:1rem;border-radius:6px;border:1px solid #d1d5db;"
+						oninput="this.value=this.value.replace(/\s/g,'')"
+						onpaste="event.preventDefault(); var text = (event.clipboardData || window.clipboardData).getData('text'); this.value += text.replace(/\s/g,'');" />
+				</div>
+				<div class="input-row">
+					<label for="suPassword">Password</label>
+					<input id="suPassword" name="password" type="password" placeholder="Create a password" required
+						style="width:100%;padding:10px 12px;font-size:1rem;border-radius:6px;border:1px solid #d1d5db;" />
+				</div>
+				<div class="input-row">
+					<label for="suConfirmPassword">Confirm Password</label>
+					<input id="suConfirmPassword" name="confirm_password" type="password"
+						placeholder="Confirm your password" required
+						style="width:100%;padding:10px 12px;font-size:1rem;border-radius:6px;border:1px solid #d1d5db;" />
+				</div>
+				<div class="input-row">
+					<label for="suResidentId">Resident ID</label>
+					<input id="suResidentId" name="resident_id" type="text" placeholder="e.g., RES-00X"
+						style="width:100%;padding:10px 12px;font-size:1rem;border-radius:6px;border:1px solid #d1d5db;" />
+				</div>
+				<div class="input-row full">
+					<button class="btn primary" type="submit"
+						style="width:100%;padding:16px 0;font-size:1.15rem;letter-spacing:0.04em;border-radius:10px;box-shadow:0 2px 8px rgba(34,197,94,0.12);background:linear-gradient(135deg,#22c55e,#16a34a);">
+						Create Account &rarr;
+					</button>
+				</div>
+			</div>
+			<small class="muted">For demo, accounts are stored in your browser only.</small>
+		</form>
+
+	</section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	// Prevent spaces in email field (JS fallback for older browsers)
+	document.getElementById('suEmail').addEventListener('input', function (e) {
+		this.value = this.value.replace(/\s/g, '');
+	});
+
+	function isValidEmail(email) {
+		return /^[^\s@]+@[^\s@]+\.com$/.test(email);
+	}
+	function isValidPhone(phone) {
+		return /^\d{10}$/.test(phone);
+	}
+
+	const signupForm = document.getElementById('signupForm');
+	signupForm.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const name = document.getElementById('suName').value.trim();
+		const email = document.getElementById('suEmail').value.trim();
+		const phone = document.getElementById('suPhone').value.trim();
+		const password = document.getElementById('suPassword').value;
+		const role = document.getElementById('suRole').value;
+		const residentId = document.getElementById('suResidentId').value.trim();
+
+		// Validation: email and phone
+		if (!isValidEmail(email)) {
+			alert('Please enter a valid email address (must contain @, end with .com, and have no spaces).');
+			return;
+		}
+		if (!isValidPhone(phone)) {
+			alert('Please enter a valid 10-digit phone number.');
+			return;
+		}
+
+		// Save signup form data
+		localStorage.setItem('signupFormData', JSON.stringify({ name, email, phone, password, role, residentId }));
+		if (window.swm && window.swm.auth && window.swm.auth.signup) {
+			window.swm.auth.signup({ name, email, phone, password, role, residentId: residentId || undefined });
+		}
+		// Redirect based on role
+		if (role === 'resident') {
+			window.location.href = 'resident.html';
+		} else if (role === 'secretary') {
+			window.location.href = 'secretary.html';
+		} else if (role === 'municipal') {
+			window.location.href = 'municipal.html';
+		}
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="container auth-container">
+	<section class="card"
+		style="background:#fff; max-width:750px; margin:150px auto; border-radius:18px; box-shadow:0 4px 24px rgba(34,197,94,0.10); padding:40px 32px;">
+		<form method="POST" action="{{ url_for('login') }}">
+			<div class="form-grid" style="gap:18px;">
+				<div class="input-row full">
+					<label for="username">Username</label>
+					<input id="username" name="username" type="text" required />
+				</div>
+				<div class="input-row full">
+					<label for="password">Password</label>
+					<input id="password" name="password" type="password" placeholder="••••••••" required />
+				</div>
+				<div class="input-row full">
+					<button class="btn primary" type="submit" style="width:100%;padding:16px 0;font-size:1.15rem;">
+						Login →
+					</button>
+					<a href="{{ url_for('register') }}" class="btn ghost" style="width:100%;margin-top:12px;">
+						Go to Register
+					</a>
+				</div>
+			</div>
+		</form>
+
+		
+
+
+		
+
+	</section>
+</main>
+{% endblock %}

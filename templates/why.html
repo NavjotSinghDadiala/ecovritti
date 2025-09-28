@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>How We Work • SmartBinX</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+</head>
+
+<body>
+<section style="text-align: center; margin-bottom: 40px;">
+  <h2 style="font-weight: 700; font-size: 2.5rem; color: #166534; margin-bottom: 16px;">Why Choose Us?</h2>
+  <select id="whoSelect" style="font-size: 1rem; padding: 10px 30px 10px 20px; border: 2px solid #22c55e; border-radius: 8px; background-color: white; color: #166534; cursor: pointer; ">
+    <option value="">Select who you are</option>
+    <option value="#why-institutes">Institutes / Colleges</option>
+    <option value="#why-companies">Companies</option>
+    <option value="#why-governments">Governments / Municipalities</option>
+  </select>
+</section>
+<!-- <section id="why-governments" class="container" style="padding: 48px 0; background: #f0fdf4; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08); margin: 32px auto; max-width: 1200px;">
+    <h2 style="text-align: center; font-size: 2rem; font-weight: 700; color: #166534; margin-bottom: 24px;">Why Governments & Municipalities Should Choose SmartBinX</h2>
+    <p style="text-align: center; font-size: 1.1rem; color: #4b5563; margin-bottom: 32px;">Landfills are a growing crisis—expanding rapidly and causing severe environmental, health, and economic burdens. SmartBinX offers a tech-driven alternative to reduce landfill use, optimize operations, and build sustainable cities.</p>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+        <div class="stat-card" style="flex: 1; min-width: 250px; padding: 24px; background: #ffffff; border: 1px solid #22c55e; border-radius: 12px; text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 600; color: #166534; margin-bottom: 8px;">Rising Landfills & Soil Pollution</h3>
+            <p>Over 80% of polluted water in developing nations stems from landfill leachate infiltrating soil, depleting oxygen and reducing agricultural yields by contaminating ecosystems[33][35].</p>
+            <p><strong>SmartBinX Solution:</strong> Real-time segregation verification prevents improper waste from reaching landfills, minimizing leachate and soil pollution.</p>
+        </div>
+        
+        <div class="stat-card" style="flex: 1; min-width: 250px; padding: 24px; background: #ffffff; border: 1px solid #22c55e; border-radius: 12px; text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 600; color: #166534; margin-bottom: 8px;">Foul Smells & Airborne Diseases</h3>
+            <p>Landfill gases cause foul odors and contribute to airborne diseases, with 70% of surveyed communities reporting air pollution leading to respiratory issues and cancers like lung and liver[35][38].</p>
+            <p><strong>SmartBinX Solution:</strong> Automated alerts and fill-level monitoring reduce overflows and emissions, improving air quality and public health.</p>
+        </div>
+        
+        <div class="stat-card" style="flex: 1; min-width: 250px; padding: 24px; background: #ffffff; border: 1px solid #22c55e; border-radius: 12px; text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 600; color: #166534; margin-bottom: 8px;">Escalating Waste Management Costs</h3>
+            <p>Mismanaged landfills drive up costs through remediation, health crises, and inefficient collections, inflating municipal budgets due to contamination and emergency responses[35][40].</p>
+            <p><strong>SmartBinX Solution:</strong> Optimized truck scheduling and data dashboards cut operational costs by up to 30-50% while supporting recycling goals[13][18].</p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 32px;">
+        <a href="#contact" class="btn" style="padding: 14px 28px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; text-decoration: none;">Partner with Us for Smarter Cities</a>
+    </div>
+</section> -->
+
+<section id="why-governments" class="container" style="padding: 48px 0; margin: 32px auto; max-width: 1200px;">
+    <section class="card" style="grid-column: 1 / -1; padding: 40px 32px; background: #f0fdf4; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);">
+        <h2 style="margin: 0 0 24px; text-align: center; font-size: 2rem; font-weight: 700; letter-spacing: -1px; color: #166534;">Why Governments & Municipalities Should Choose SmartBinX</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #4b5563; margin-bottom: 32px;">Landfills are a growing crisis—expanding rapidly and causing severe environmental, health, and economic burdens. SmartBinX offers a tech-driven alternative to reduce landfill use, optimize operations, and build sustainable cities.</p>
+        
+        <div class="grid grid-3" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px;">
+            <div class="workflow-step" style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius: 16px; box-shadow: 0 2px 8px rgba(34,197,94,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🌍</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #166534;">Rising Landfills & Soil Pollution</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Over 80% of polluted water in developing nations stems from landfill leachate infiltrating soil, depleting oxygen and reducing agricultural yields by contaminating ecosystems.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Real-time segregation verification prevents improper waste from reaching landfills, minimizing leachate and soil pollution.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(56,189,248,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">☁️</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #2563eb;">Foul Smells & Airborne Diseases</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Landfill gases cause foul odors and contribute to airborne diseases, with 70% of surveyed communities reporting air pollution leading to respiratory issues and cancers like lung and liver.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Automated alerts and fill-level monitoring reduce overflows and emissions, improving air quality and public health.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(167,139,250,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">💸</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #7c3aed;">Escalating Waste Management Costs</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Mismanaged landfills drive up costs through remediation, health crises, and inefficient collections, inflating municipal budgets due to contamination and emergency responses.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Optimized truck scheduling and data dashboards cut operational costs by up to 30-50% while supporting recycling goals.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="{{ url_for('contact') }}" class="btn" style="padding: 14px 28px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; text-decoration: none;">Partner with Us for Smarter Cities</a>
+        </div>
+    </section>
+
+    
+</section>
+
+<!-- <section id="why-institutes" class="container" style="padding: 48px 0; margin: 32px auto; max-width: 1200px;">
+    <section class="card" style="grid-column: 1 / -1; padding: 40px 32px; background: #f0fdf4; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);">
+        <h2 style="margin: 0 0 24px; text-align: center; font-size: 2rem; font-weight: 700; letter-spacing: -1px; color: #166534;">Why Institutes & Colleges Should Choose SmartBinX</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #4b5563; margin-bottom: 32px;">Empower your campus with smart waste solutions that educate students, promote sustainability, and create a cleaner learning environment. Join leading institutions transforming waste into opportunity.</p>
+        
+        <div class="grid grid-3" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px;">
+            <div class="workflow-step" style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius: 16px; box-shadow: 0 2px 8px rgba(34,197,94,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🏫</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #166534;">Educate & Engage Students</h3>
+                <p class="muted" style="margin-bottom: 0;">Many campuses struggle with waste education, but programs like those at Symbiosis Centre show 70% student participation in sustainable practices boosts awareness[53][54].</p>
+                <p class="muted" style="margin-top: 12px;"><strong>SmartBinX Solution:</strong> Reward points for proper segregation teach responsibility, integrating with curriculum for hands-on eco-learning.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(56,189,248,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">♻️</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #2563eb;">Reduce Campus Waste & Costs</h3>
+                <p class="muted" style="margin-bottom: 0;">Colleges generate tons of waste annually; zero-waste initiatives like Sathaye College's cut landfill use by up to 50% through composting and recycling[56][57].</p>
+                <p class="muted" style="margin-top: 12px;"><strong>SmartBinX Solution:</strong> Real-time monitoring optimizes collections, saving 20-40% on management costs while promoting zero-liquid discharge[57].</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(167,139,250,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🌿</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #7c3aed;">Build a Green Campus Legacy</h3>
+                <p class="muted" style="margin-bottom: 0;">Institutions like Alva's and NorthCap achieve eco-friendly status with composting and e-waste drives, enhancing reputation and community impact[54][57].</p>
+                <p class="muted" style="margin-top: 12px;"><strong>SmartBinX Solution:</strong> Data dashboards track sustainability metrics, helping earn green certifications and inspire future leaders.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="#contact" class="btn" style="padding: 14px 28px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; text-decoration: none;">Transform Your Campus Today</a>
+        </div>
+    </section>
+</section> -->
+
+
+<section id="why-institutes" class="container" style="padding: 48px 0; margin: 32px auto; max-width: 1200px;">
+    <section class="card" style="grid-column: 1 / -1; padding: 40px 32px; background: #f0fdf4; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);">
+        <h2 style="margin: 0 0 24px; text-align: center; font-size: 2rem; font-weight: 700; letter-spacing: -1px; color: #166534;">Why Institutes & Colleges Should Choose SmartBinX</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #4b5563; margin-bottom: 32px;">Transform your campus with smart waste solutions that educate students, protect the environment, and elevate your institution's reputation. Discover the lasting impacts below.</p>
+        
+        <div class="grid grid-3" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px;">
+            <div class="workflow-step" style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius: 16px; box-shadow: 0 2px 8px rgba(34,197,94,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">👩‍🎓</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #166534;">Impact on Students</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Smart systems boost engagement, with 70% of students participating in sustainability programs, fostering responsible habits and awareness for lifelong eco-conscious behavior.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Rewards and real-time feedback encourage proper waste habits, turning campuses into hands-on learning labs for sustainability.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(56,189,248,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🌍</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #2563eb;">Environmental Impact</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Reduces landfill waste by up to 45%, cuts emissions through optimized collections, and promotes recycling, minimizing pollution on campus.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> AI-driven segregation and monitoring divert waste from landfills, supporting a circular economy and lowering carbon footprints.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(167,139,250,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🏆</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #7c3aed;">Impact on Institute Reputation</h3>
+                <p class="muted" style="margin-bottom: 0;font-weight: bold;">Enhances global rankings and attracts eco-conscious students; institutions with strong WM improve reputation at local, national, and international levels.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Data dashboards showcase sustainability metrics, earning green certifications and positioning your institute as a leader in eco-innovation.</p>
+            </div>
+        </div>
+        
+        
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="{{ url_for('contact') }}" class="btn" style="padding: 14px 28px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; text-decoration: none;">Elevate Your Campus Sustainability</a>
+        </div>
+    </section>
+</section>
+
+<section id="why-companies" class="container" style="padding: 48px 0; margin: 32px auto; max-width: 1200px;">
+    <section class="card" style="grid-column: 1 / -1; padding: 40px 32px; background: #f0fdf4; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);">
+        <h2 style="margin: 0 0 24px; text-align: center; font-size: 2rem; font-weight: 700; letter-spacing: -1px; color: #166534;">Why Companies Should Choose SmartBinX</h2>
+        <p style="text-align: center; font-size: 1.1rem; color: #4b5563; margin-bottom: 32px;">In today's competitive landscape, smart waste management isn't just eco-friendly—it's a smart business move that cuts costs, boosts sustainability, and enhances your brand. Discover how SmartBinX delivers real ROI for your operations.</p>
+        
+        <div class="grid grid-3" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px;">
+            <div class="workflow-step" style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius: 16px; box-shadow: 0 2px 8px rgba(34,197,94,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">💰</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #166534;">Significant Cost Savings</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Optimized routes and predictive analytics can cut fuel and labor costs by 20-30%, while reducing disposal fees through better segregation.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Real-time monitoring minimizes unnecessary collections, saving up to 63% on operational expenses.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(56,189,248,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🌿</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #2563eb;">Sustainability & Compliance</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Reduces carbon footprint by diverting waste from landfills and improving recycling rates, ensuring compliance with regulations.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Automated reporting and AI-driven insights help meet ESG goals, lowering emissions and supporting net-zero targets.</p>
+            </div>
+            
+            <div class="workflow-step" style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius: 16px; box-shadow: 0 2px 8px rgba(167,139,250,0.07); padding: 32px 20px; text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🏆</div>
+                <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #7c3aed;">Enhanced Brand Reputation</h3>
+                <p class="muted" style="margin-bottom: 0; font-weight: bold;">Demonstrates corporate responsibility, attracting eco-conscious clients and boosting B-Corp or sustainability certifications.</p>
+                <p class="muted" style="margin-top: 12px; font-weight: bold;"><strong>SmartBinX Solution:</strong> Transparent data dashboards showcase your green initiatives, improving investor appeal and market positioning.</p>
+            </div>
+        </div>
+        
+        
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="{{ url_for('contact') }}" class="btn" style="padding: 14px 28px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; text-decoration: none;">Optimize Your Operations Today</a>
+        </div>
+    </section>
+</section>
+
+<script>
+document.getElementById('whoSelect').addEventListener('change', function() {
+  var value = this.value;
+  if (value) {
+    var target = document.querySelector(value);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+});
+</script>
+</body>
+
+</html>
+{% endblock %}
