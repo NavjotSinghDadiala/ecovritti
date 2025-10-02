@@ -235,7 +235,7 @@
       img.style.display = "block";
       img.src = "{{ url_for('capture_image') }}";
       // Fetch ML endpoint
-      const resp = await fetch("{{ url_for('capture_from_esp') }}");
+      const resp = await fetch("#");
       const data = await resp.json();
       const resultDiv = document.getElementById("wasteResult");
       if (data.status === "success") {
