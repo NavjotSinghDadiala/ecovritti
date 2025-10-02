@@ -7,4 +7,4 @@ Flask-Login
 PyMySQL
 opencv-python
 numpy
-tensorflow
+qrcode
