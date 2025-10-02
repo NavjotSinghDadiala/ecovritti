@@ -10,6 +10,8 @@ eco/
 venv/
 ENV/
 .env
+model/
+models2/
 
 # Database
 site.db

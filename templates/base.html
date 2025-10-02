@@ -26,8 +26,8 @@
                 <nav class="nav-links">
                     {% block nav_links %}
                     <a id="navHow" href="{{ url_for('how') }}">How we work</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
+                    <a href="{{ url_for('why') }}">Why Us</a>
+                    <a href="{{ url_for('contact') }}">Contact</a>
                     <a id="navAuth" class="btn primary" href="{{ url_for('login') }}">Login / Sign Up</a>
                     <a class="btn ghost" href="#">Get Quote</a>
                     {% endblock %}

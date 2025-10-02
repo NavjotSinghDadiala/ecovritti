@@ -2,7 +2,7 @@
 {% block content %}
 <div class="dashboard-hero">
   <div class="dashboard-hero-icon">
-    <span class="material-icons" style="font-size:3rem;color:#22c55e;">person</span>
+    <span class="material-icons" style="font-size:3rem;color:#22c55e;">navi</span>
   </div>
   <div>
     <h1 class="dashboard-title">Resident Dashboard</h1>
@@ -27,9 +27,12 @@
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">qr_code</span> Profile & QR <span class="badge success" id="residentIdBadge"></span></div>
     <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:24px;">
-      <div id="qr" style="border-radius:16px; box-shadow:0 2px 12px rgba(34,197,94,0.10);"></div>
+      {% if user.qr_code_path %}
+        <img src="{{ url_for('static', filename='qrcodes/resident_' ~ user.id ~ '.png') }}" width="160" height="160" style="border-radius:16px; box-shadow:0 2px 12px rgba(34,197,94,0.10);" alt="Resident QR">
+      {% else %}
+        <div id="qr" style="border-radius:16px; box-shadow:0 2px 12px rgba(34,197,94,0.10);"></div>
+      {% endif %}
       <p style="font-size:14px; color:#16a34a; margin:0;">Your Unique QR Code</p>
-      <p><span id="residentName"></span> • <span id="residentFlat"></span></p>
     </div>
   </section>
   <section class="card dashboard-section">
@@ -53,18 +56,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    document.getElementById("residentName").textContent = user.name || "Unknown";
-    document.getElementById("residentFlat").textContent = user.flat || "Flat-NA";
-    document.getElementById("residentIdBadge").textContent = user.residentId || "RES-NA";
-    new QRCode(document.getElementById("qr"), {
-      text: user.residentId || user.email,
-      width: 160,
-      height: 160,
-      colorDark: "#16a34a",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
+    // If fallback QR div exists, generate a QR using server-side values
+    const qrDiv = document.getElementById("qr");
+    if (qrDiv) {
+      new QRCode(qrDiv, {
+        text: "{{ user.id }}",
+        width: 160,
+        height: 160,
+        colorDark: "#16a34a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
     const rewards = [
       { date: "2025-09-20", reward: "+20 pts", note: "Proper segregation" },
       { date: "2025-09-15", reward: "+10 pts", note: "Organic waste recycled" }
@@ -80,7 +83,7 @@
     document.getElementById("levelValue").textContent = level;
     // Example mock leaderboard
     const leaderboard = [
-      { name: user.name, flat: user.flat, score: totalPoints + " pts" },
+      { name: "{{ user.username }}", flat: "{{ user.room_no }}", score: totalPoints + " pts" },
       { name: "Neha Sharma", flat: "B-203", score: "140 pts" },
       { name: "Ravi Patel", flat: "A-305", score: "135 pts" }
     ];
@@ -88,7 +91,7 @@
     leaderboard.forEach((p, i) => {
       const row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.flat}</td><td>${p.score}</td></tr>`;
       leaderboardTable.insertAdjacentHTML("beforeend", row);
-      if (p.name === user.name) document.getElementById("rankValue").textContent = i + 1;
+      if (p.name === "{{ user.username }}") document.getElementById("rankValue").textContent = i + 1;
     });
   });
 </script>

@@ -23,12 +23,99 @@
     </div>
   </div>
 </div>
+<div class="container py-4">
+  <h2 class="mb-4">Admin Dashboard</h2>
+
+  <!-- Pending Approvals -->
+  <div class="card shadow mb-4">
+      <div class="card-header bg-warning">
+          Pending Residents
+      </div>
+      <div class="card-body">
+          {% if pending %}
+          <table class="table table-bordered table-hover">
+              <thead class="table-dark">
+                  <tr>
+                      <th>Username</th>
+                      <th>Room</th>
+                      <th>Contact</th>
+                      <th>Society</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for r in pending %}
+                  <tr>
+                      <td>{{ r.username }}</td>
+                      <td>{{ r.room_no }}</td>
+                      <td>{{ r.contact }}</td>
+                      <td>{{ r.society }}</td>
+                      <td>
+                          <form method="POST" action="{{ url_for('admin_approve_resident', resident_id=r.id) }}" style="display:inline;">
+                              <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                          </form>
+                          <form method="POST" action="{{ url_for('admin_reject_resident', resident_id=r.id) }}" style="display:inline;">
+                              <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                          </form>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+          {% else %}
+          <p class="text-muted">No pending residents.</p>
+          {% endif %}
+      </div>
+  </div>
+  <div class="card shadow">
+    <div class="card-header bg-success text-white">
+        Approved Residents
+    </div>
+    <div class="card-body">
+        {% if approved %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Room</th>
+                    <th>Contact</th>
+                    <th>Society</th>
+                    <th>QR Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in approved %}
+                <tr>
+                    <td>{{ r.username }}</td>
+                    <td>{{ r.room_no }}</td>
+                    <td>{{ r.contact }}</td>
+                    <td>{{ r.society }}</td>
+                    <td>
+                        {% if r.qr_code_path %}
+                            <img src="{{ url_for('static', filename='qrcodes/resident_' ~ r.id ~ '.png') }}" width="80">
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted">No approved residents yet.</p>
+        {% endif %}
+    </div>
+</div>
+
 <main class="dashboard-main grid grid-2">
+  <!-- Bin Fill Alerts -->
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">warning</span> Bin Fill Alerts <span class="badge danger" id="badgeCritical">0</span></div>
     <div id="fillAlerts" class="alerts-list"></div>
     <p class="small-muted">Shows bins near capacity. <span class="badge danger">Red</span> = critical.</p>
   </section>
+
+  <!-- Sensor Table -->
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">battery_alert</span> Battery & Sensor Calibration</div>
     <table class="table sensor-table" id="sensorTable">
@@ -38,15 +125,21 @@
       <tbody></tbody>
     </table>
   </section>
+
+  <!-- WiFi/SMS Alerts -->
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">wifi_off</span> WiFi / SMS Alerts</div>
     <button class="btn ghost" id="simulateWifiBtn">Simulate WiFi Failure</button>
     <div id="smsBanner" class="sms-banner"></div>
   </section>
+
+  <!-- Compliance Chart -->
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">insights</span> Area Compliance Report</div>
     <canvas id="areaComplianceChart" width="400" height="220"></canvas>
   </section>
+
+  <!-- Quick Summary -->
   <section class="card dashboard-section">
     <div class="section-title"><span class="material-icons kpi-icon">summarize</span> Quick Summary</div>
     <ul class="dashboard-summary">
@@ -55,9 +148,25 @@
       <li id="summarySensors">Sensors needing calibration: 0</li>
     </ul>
   </section>
+
+  <!-- ✅ ESP32-CAM Section -->
+  <section class="card dashboard-section">
+    <div class="section-title">
+      <span class="material-icons kpi-icon">videocam</span> ESP32-CAM Live Feed
+    </div>
+    <div class="camera-container">
+      <img id="esp32Feed" src="" width="100%" style="border-radius:8px; display:none;"/>
+      <button id="captureBtn" class="btn" style="margin-top:10px;">Capture Snapshot</button>
+      <div id="wasteResult" style="margin-top:16px; font-size:1.15rem; font-weight:600; color:#166534;"></div>
+    </div>
+  </section>
 </main>
+
 <script src="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
+  // Mock data for bins and sensors
   const mockBins = [
     { id: 'Bin-1', fill: 80, area: 'Sector 12' },
     { id: 'Bin-2', fill: 45, area: 'Sector 7' },
@@ -68,6 +177,7 @@
     { id: 'S-102', bin: 'Bin-2', battery: 82, calibrated: true },
     { id: 'S-103', bin: 'Bin-3', battery: 12, calibrated: false }
   ];
+
   function renderFillAlerts() {
     const c = document.getElementById('fillAlerts');
     c.innerHTML = '';
@@ -83,6 +193,7 @@
     document.getElementById('kpiCritical').textContent = critical;
     document.getElementById('summaryBins').textContent = `Bins critical: ${critical}`;
   }
+
   function renderSensorTable() {
     const tb = document.querySelector('#sensorTable tbody');
     tb.innerHTML = '';
@@ -100,6 +211,7 @@
     document.getElementById('summaryLowBattery').textContent = `Low battery: ${lowBattery}`;
     document.getElementById('summarySensors').textContent = `Sensors needing calibration: ${sensors}`;
   }
+
   function initAreaChart() {
     new Chart(document.getElementById('areaComplianceChart'), {
       type: 'line',
@@ -107,10 +219,42 @@
       options: { plugins: { legend: { display: false } }, scales: { y: { suggestedMin: 0, suggestedMax: 100 } } }
     });
   }
+
   document.getElementById('simulateWifiBtn').onclick = () => {
     document.getElementById('smsBanner').style.display = 'block';
     document.getElementById('smsBanner').textContent = 'WiFi Failure detected — SMS sent.';
   };
+
+  // ✅ Capture snapshot only on button click
+  document.getElementById("captureBtn").onclick = async () => {
+    const btn = document.getElementById("captureBtn");
+    btn.disabled = true;
+    btn.textContent = "Capturing...";
+    try {
+      const img = document.getElementById("esp32Feed");
+      img.style.display = "block";
+      img.src = "{{ url_for('capture_image') }}";
+      // Fetch ML endpoint
+      const resp = await fetch("{{ url_for('capture_from_esp') }}");
+      const data = await resp.json();
+      const resultDiv = document.getElementById("wasteResult");
+      if (data.status === "success") {
+        resultDiv.textContent = "Waste type: " + data.waste_type.charAt(0).toUpperCase() + data.waste_type.slice(1);
+        resultDiv.style.color = data.waste_type === 'organic' ? '#16a34a' : '#2563eb';
+      } else {
+        resultDiv.textContent = "Failed to capture: " + (data.error || "Unknown error");
+        resultDiv.style.color = '#dc2626';
+      }
+    } catch (err) {
+      document.getElementById("wasteResult").textContent = "Error: " + err;
+      document.getElementById("wasteResult").style.color = '#dc2626';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Capture Snapshot";
+    }
+  };
+
+  // Initialize all dashboard elements
   (function init() {
     renderFillAlerts();
     renderSensorTable();
