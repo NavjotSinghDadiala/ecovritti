@@ -328,11 +328,11 @@ def test_post():
     return jsonify({"status": "success", "message": "Data received"}), 200
 
 # Load the Keras model once at startup
-MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'model.keras')
+'''MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model', 'model.keras')
 model = keras.models.load_model(MODEL_PATH)
-CLASS_NAMES = ['organic', 'recyclable']
+CLASS_NAMES = ['organic', 'recyclable']'''
 
-def predict_waste(image):
+'''def predict_waste(image):
     # Preprocess: resize, convert to RGB, scale to [0,1]
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (224, 224))
@@ -340,7 +340,7 @@ def predict_waste(image):
     img = np.expand_dims(img, axis=0)
     preds = model.predict(img)
     class_idx = int(np.argmax(preds))
-    return CLASS_NAMES[class_idx]
+    return CLASS_NAMES[class_idx]'''
 
 def generate_qr_for_resident(resident):
     qr_data = f"ResidentID:{resident.id}|Name:{resident.username}|Room:{resident.room_no}|Society:{resident.society}"
@@ -356,7 +356,7 @@ def generate_password_for_resident(resident):
     resident.password = f"{name_part}{resident.room_no}"
     db.session.commit()
 
-@app.route("/capture", methods=["GET"])
+'''@app.route("/capture", methods=["GET"])
 def capture_from_esp():
     """Capture image from ESP32-CAM"""
     try:
@@ -379,7 +379,7 @@ def capture_from_esp():
 
         return jsonify({"status": "success", "waste_type": prediction})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500'''
 
 @app.route("/capture_image")
 def capture_image():
