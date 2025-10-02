@@ -6,8 +6,8 @@ from os import environ
 import requests
 import numpy as np
 import cv2
-import tensorflow as tf
-from tensorflow import keras
+#import tensorflow as tf
+#from tensorflow import keras
 import qrcode
 from datetime import datetime
 
