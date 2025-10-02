@@ -8,3 +8,4 @@ PyMySQL
 opencv-python
 numpy
 qrcode
+requests
