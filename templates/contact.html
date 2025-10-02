@@ -1,82 +1,124 @@
 {% extends "base.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - SmartBinX</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-    <!-- <header class="landing-nav" style="background-color: #49544f;">
-        <div class="container nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="brand" style="display: flex; gap: 12px; align-items: center;">
-                <img src="images/SmartBinX Logo Design.png" alt="SmartBinX Logo" style="height: 52px; width: auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(34,197,94,0.12); margin-right: 14px;">
-                <div>
-                    <div class="brand-title">SmartBinX</div>
-                    <div class="brand-sub">Next-Gen Waste Segregation</div>
-                </div>
-            </div>
-            <nav class="nav-links" style="display: flex; gap: 32px;">
-                <a href="home.html" style="color: #ffffff;">Home</a>
-                <a id="navHow" href="how.html" style="color: #ffffff;">How we work</a>
-                <a href="#" style="color: #ffffff;">About</a>
-                <a href="#footer" onclick="document.querySelector('footer').scrollIntoView({behavior: 'smooth'}); return false;" style="color: #ffffff;">Contact</a>
-            </nav>
-            <div class="nav-cta" style="display: flex; gap: 12px;">
-                <a class="btn ghost" href="login.html">Login / Sign Up</a>
-            </div>
+<header class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>Contact Us</h1>
+            <p class="page-subtitle">Ready to transform your waste management? Get in touch with our experts today.</p>
         </div>
-    </header> -->
+    </div>
+</header>
 
-    <header class="site-header">
-        <h1>Contact Us</h1>
-        <p class="subtitle">Get in touch for waste management solutions, consultations, or support.</p>
-    </header>
-
-    <main class="container">
-        <!-- <section class="card" style="padding: 40px 32px; max-width: 600px; margin: 0 auto; background: #f0fdf4; border: 1px solid #22c55e; border-radius: 18px; box-shadow: 0 4px 16px rgba(34,197,94,0.08);"> -->
-        <div class="card" style="padding: 48px 40px; border-radius: 20px; box-shadow: 0 6px 24px rgba(34,197,94,0.12);">
-            <h2 style="margin: 0 0 24px; text-align: center; font-size: 1.8rem; font-weight: 700; color: #166534;">Send Us a Message</h2>
-            <form action="/submit-contact" method="POST">  <!-- Adjust action to your backend endpoint -->
-                <div style="margin-bottom: 20px;">
-                    <label for="name" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Name</label>
-                    <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;">
+<main class="container">
+    <div class="contact-content">
+        <!-- Contact Form -->
+        <section class="contact-form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Send Us a Message</h2>
+                    <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
                 </div>
-                <div style="margin-bottom: 20px;">
-                    <label for="email" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Email</label>
-                    <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;">
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label for="message" style="display: block; margin-bottom: 8px; font-weight: 600; color: #166534;">Your Message</label>
-                    <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 12px; border: 1px solid #22c55e; border-radius: 8px; font-size: 1rem;"></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 14px; background: #22c55e; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Submit</button>
-            </form>
-        <!-- </section> -->
-        </div>
-
-        <section style="margin-top: 48px; text-align: center;">
-            <h3 style="margin-bottom: 16px; color: #166534;">Other Ways to Reach Us</h3>
-            <p class="muted">Email: ✉️ smartbinX@gmail.com | Phone: 📞 +91XXXXXXXXXX</p>
-            <p class="muted">Address: 📍 Navi Mumbai</p>
+                <form class="contact-form" action="/submit-contact" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization</label>
+                            <input type="text" id="organization" name="organization" placeholder="Your company or organization">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="demo">Request a Demo</option>
+                            <option value="pricing">Pricing Information</option>
+                            <option value="support">Technical Support</option>
+                            <option value="partnership">Partnership Opportunity</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Tell us about your waste management needs..."></textarea>
+                    </div>
+                    <button type="submit" class="btn primary submit-btn">
+                        <span>Send Message</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
         </section>
-    </main>
 
-    
+        <!-- Contact Information -->
+        <section class="contact-info-section">
+            <div class="contact-info-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <p>smartbinX@gmail.com</p>
+                    <a href="mailto:smartbinX@gmail.com" class="contact-link">Send Email</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>+91 XXXXXXXXXX</p>
+                    <a href="tel:+91XXXXXXXXXX" class="contact-link">Call Now</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Visit Us</h3>
+                    <p>Navi Mumbai, India</p>
+                    <a href="#" class="contact-link">Get Directions</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Live Chat</h3>
+                    <p>Available 9 AM - 6 PM</p>
+                    <a href="#" class="contact-link">Start Chat</a>
+                </div>
+            </div>
+        </section>
 
-    <script src="assets/js/injectFooter.js"></script>
-    <script>
-        // Update footer year
-        const yearEls = document.querySelectorAll('.year');
-        yearEls.forEach(el => { el.textContent = new Date().getFullYear(); });
-    </script>
-</body>
-</html>
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common questions about our smart waste management solutions</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>How does the AI waste recognition work?</h4>
+                    <p>Our AI system uses advanced machine learning algorithms to identify and categorize different types of waste with 95% accuracy, ensuring proper segregation.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What is the implementation timeline?</h4>
+                    <p>Typical implementation takes 2-4 weeks, including system setup, staff training, and integration with existing waste management processes.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you provide training and support?</h4>
+                    <p>Yes, we offer comprehensive training for your staff and ongoing technical support to ensure smooth operation of the system.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can the system integrate with existing infrastructure?</h4>
+                    <p>Our smart bins are designed to integrate seamlessly with existing waste management infrastructure and municipal systems.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
 {% endblock %}
 
 

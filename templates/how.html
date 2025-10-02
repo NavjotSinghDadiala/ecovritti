@@ -1,83 +1,174 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+<header class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>How We Work</h1>
+            <p class="page-subtitle">Discover our innovative 4-step process that revolutionizes waste management</p>
+        </div>
+    </div>
+</header>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>How We Work • SmartBinX</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
-</head>
+<main class="container">
+    <!-- Process Overview -->
+    <section class="process-overview">
+        <div class="section-header">
+            <h2>Our Smart Waste Management Process</h2>
+            <p>From household to final disposal, we ensure every step is optimized for efficiency and sustainability</p>
+        </div>
+        
+        <div class="process-timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-icon">🏠</div>
+                    <h3>Smart Household Segregation</h3>
+                    <p>Each household uses our smart bins with QR code scanning to track and segregate waste properly. Our AI system provides real-time feedback on segregation quality.</p>
+                    <ul class="step-features">
+                        <li>QR code-based waste tracking</li>
+                        <li>AI-powered segregation guidance</li>
+                        <li>Real-time feedback system</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-icon">🚛</div>
+                    <h3>Intelligent Collection</h3>
+                    <p>Our collectors use portable smart bins that automatically verify segregation quality. Correct segregation earns points, while issues trigger immediate alerts for correction.</p>
+                    <ul class="step-features">
+                        <li>Portable smart bin technology</li>
+                        <li>Automatic quality verification</li>
+                        <li>Instant reward system</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-icon">🗑️</div>
+                    <h3>Area-Level Monitoring</h3>
+                    <p>Waste is transferred to area-level smart bins equipped with IoT sensors. Fill levels are tracked in real-time, with automatic alerts sent to municipal authorities.</p>
+                    <ul class="step-features">
+                        <li>IoT sensor integration</li>
+                        <li>Real-time fill level monitoring</li>
+                        <li>Automated municipal alerts</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-icon">📱</div>
+                    <h3>Digital Tracking & Rewards</h3>
+                    <p>Citizens track their compliance reports and earn rewards through our mobile app. Municipal dashboards provide comprehensive data analytics and segregation trends.</p>
+                    <ul class="step-features">
+                        <li>Mobile app for citizens</li>
+                        <li>Municipal dashboard analytics</li>
+                        <li>Reward point system</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<body>
-	<header class="landing-nav" style="background-color:#49544f;">
-		<div class="container nav-inner" style="display:flex; justify-content:space-between; align-items:center;">
-			<div class="brand" style="display:flex; gap:12px; align-items:center;">
-				<img src="{{ url_for('static', filename='images/SmartBinX Logo Design.png') }}" alt="SmartBinX Logo"
-					style="height:52px; width:auto; border-radius:12px; box-shadow:0 2px 12px rgba(34,197,94,0.12); margin-right:14px;" />
-				<div>
-					<div class="brand-title">SmartBinX</div>
-					<div class="brand-sub">Next-Gen Waste Segregation</div>
-				</div>
-			</div>
-			<nav class="nav-links" style="display:flex; gap:32px;">
-				<a href="{{ url_for('home') }}" style="color: #ffffff;">Home</a>
-				<a id="navHow" href="{{ url_for('how') }}" style="color: #ffffff;">How we work</a>
-				<a href="#" style="color: #ffffff;">About</a>
-				<a href="{{ url_for('contact') }}"
-					onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'}); return false;"
-					style="color: #ffffff;">Contact</a>
-			</nav>
-			<div class="nav-cta" style="display:flex; gap:12px;">
-				<a class="btn ghost" href="{{ url_for('login') }}">Login / Sign Up</a>
-			</div>
-		</div>
-	</header>
+    <!-- Technology Features -->
+    <section class="technology-features">
+        <div class="section-header">
+            <h2>Advanced Technology Integration</h2>
+            <p>Cutting-edge solutions that make waste management smarter and more efficient</p>
+        </div>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon">🤖</div>
+                <h3>AI-Powered Recognition</h3>
+                <p>Machine learning algorithms identify waste types with 95% accuracy, ensuring proper segregation every time.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">📊</div>
+                <h3>Real-Time Analytics</h3>
+                <p>Comprehensive data collection and analysis provide insights for optimizing collection routes and schedules.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">🌐</div>
+                <h3>IoT Integration</h3>
+                <p>Smart sensors monitor bin levels, environmental conditions, and collection efficiency in real-time.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">📱</div>
+                <h3>Mobile Dashboard</h3>
+                <p>User-friendly interface for citizens and municipal staff to monitor and manage waste operations.</p>
+            </div>
+        </div>
+    </section>
 
-	<header class="site-header">
-		<h1>How We Work</h1>
-		<p class="subtitle">End-to-end smart waste management workflow</p>
-	</header>
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="benefits-content">
+                <div class="benefits-text">
+                    <h2>Why Choose Our Smart System?</h2>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✅</div>
+                            <div class="benefit-content">
+                                <h4>95% Accuracy Rate</h4>
+                                <p>Our AI system ensures near-perfect waste segregation</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💰</div>
+                            <div class="benefit-content">
+                                <h4>40% Cost Reduction</h4>
+                                <p>Optimized routes and reduced disposal fees</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🌍</div>
+                            <div class="benefit-content">
+                                <h4>60% Less Landfill Waste</h4>
+                                <p>Significant reduction in environmental impact</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefits-visual">
+                    <div class="stats-circle">
+                        <div class="stat-item">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">40%</div>
+                            <div class="stat-label">Cost Savings</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">60%</div>
+                            <div class="stat-label">Less Waste</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<main class="container">
-		<section class="card" style="grid-column:1/-1; padding:40px 32px;">
-			<h2 style="margin:0 0 24px; text-align:center; font-size:2rem; font-weight:700; letter-spacing:-1px;">Smart
-				Waste Management Workflow</h2>
-			<div class="grid grid-4" style="grid-template-columns: repeat(4, minmax(0,1fr)); gap:32px;">
-				<div class="workflow-step"
-					style="background: linear-gradient(135deg, #f0fdf4, #ffffff); border-radius:16px; box-shadow:0 2px 8px rgba(34,197,94,0.07); padding:32px 20px; text-align:center;">
-					<div style="font-size:2.5rem; margin-bottom:12px;">🏠</div>
-					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#166534;">Household Segregation & QR Scan
-					</h3>
-					<p class="muted" style="margin-bottom:0;">Each household segregates wet & dry waste. Waste is linked
-						to the household through QR code scanning.</p>
-				</div>
-				<div class="workflow-step"
-					style="background: linear-gradient(135deg, #e0f2fe, #f0fdf4); border-radius:16px; box-shadow:0 2px 8px rgba(56,189,248,0.07); padding:32px 20px; text-align:center;">
-					<div style="font-size:2.5rem; margin-bottom:12px;">🚛</div>
-					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#2563eb;">Collector Visit with Smart Bin</h3>
-					<p class="muted" style="margin-bottom:0;">Collector carries a portable smart bin. If segregation is
-						wrong → alert triggered & corrected. If right → points rewarded.</p>
-				</div>
-				<div class="workflow-step"
-					style="background: linear-gradient(135deg, #ede9fe, #f0fdf4); border-radius:16px; box-shadow:0 2px 8px rgba(167,139,250,0.07); padding:32px 20px; text-align:center;">
-					<div style="font-size:2.5rem; margin-bottom:12px;">🗑️</div>
-					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#7c3aed;">Area-Level Bin & Monitoring</h3>
-					<p class="muted" style="margin-bottom:0;">Waste is transferred to area-level smart bins with IoT
-						sensors. Fill levels tracked in real time, alerts sent to municipality.</p>
-				</div>
-				<div class="workflow-step"
-					style="background: linear-gradient(135deg, #f0fdf4, #e0f2fe); border-radius:16px; box-shadow:0 2px 8px rgba(34,197,94,0.07); padding:32px 20px; text-align:center;">
-					<div style="font-size:2.5rem; margin-bottom:12px;">📱</div>
-					<h3 style="font-size:1.2rem; margin-bottom:10px; color:#166534;">App/Website Tracking & Rewards</h3>
-					<p class="muted" style="margin-bottom:0;">Citizens track compliance reports & rewards. Municipality
-						dashboard shows real-time data & segregation trends.</p>
-				</div>
-
-
-				<script src="{{ url_for('static', filename='assets/js/injectFooter.js') }}"></script>
-</body>
-
-</html>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Implement Smart Waste Management?</h2>
+                <p>Join the revolution in sustainable waste management and make a real difference in your community.</p>
+                <div class="cta-actions">
+                    <a href="{{ url_for('contact') }}" class="btn primary">Get Started Today</a>
+                    <a href="{{ url_for('why') }}" class="btn ghost">Learn More Benefits</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
